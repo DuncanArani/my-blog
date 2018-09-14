@@ -13,12 +13,12 @@ class UpdateProfile(FlaskForm):
     submit = SubmitField('Submit') 
 
 class blogForm(FlaskForm):
-    category_id = SelectField('Select Category', choices=[('1', 'Interview'), ('2', 'Pick Up Lines'), ('3', 'Promotion'),('4','Product')])
+    category_id = SelectField('Select Category', choices=[('1', 'Interview')])
     content = TextAreaField('YOUR blog')
     submit = SubmitField('Create blog')
 
 class likeForm(FlaskForm):
     '''
-    Class to create a wtf form for likeing a blog
+    Class to create a wtf form for liking a blog
     '''
     submit = SubmitField('like')

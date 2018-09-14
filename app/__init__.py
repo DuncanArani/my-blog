@@ -15,6 +15,7 @@ login_manager.login_view = 'auth.login'
 photos = UploadSet('photos',IMAGES)
 mail = Mail()
 simple = SimpleMDE()
+migrate = Migrate(app, db)
 
 
 def create_app(config_name):
