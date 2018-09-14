@@ -72,7 +72,7 @@ class Blog (db.Model):
         '''
         Function that queries the databse and returns all the bloges
         '''
-        return blog.query.all()
+        return Blog.query.all()
 class Comment(db.Model):
     
     __tablename__ = 'comments'

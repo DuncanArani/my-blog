@@ -17,7 +17,7 @@ def index():
     title = 'Home - Welcome to The best bloging Website Online'
 
     search_blog = request.args.get('blog_query')
-    bloges= blog.get_all_bloges()  
+    bloges= Blog.get_all_bloges()  
 
     return render_template('index.html', title = title, bloges= bloges)
 
