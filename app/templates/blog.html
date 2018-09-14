@@ -1,0 +1,31 @@
+{% extends 'base.html'%}
+{% import 'macros.html' as macro%}
+
+<!-- Content block -->
+{% block content %}
+<div class="container">
+
+    <!-- Poster background -->
+    <div class="row">
+            <h3>blog ID:{{ found_blog.id }}</h3>
+
+            <p> {{ found_blog.blog }}</p>
+
+            <a href="/blog/comments/new/{{found_blog.id}}"> Comment</a>
+    </div>
+    <div class="row">
+            
+                    <h1>Comments on this blog</h1>
+                    <hr>
+            
+                    {% if blog_comments %}
+                        {{ macro.displayComments(blog_comments) }}
+            
+                    {% else%}
+                        <h3 class="text-center">This blog has no Comments </h3>
+                    {% endif %}
+
+                </div>
+
+</div>
+{% endblock %}
