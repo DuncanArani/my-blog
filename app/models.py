@@ -47,7 +47,7 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return f'User {self.username}'
 
-class blog (db.Model):
+class Blog (db.Model):
     '''
     blog class to define blog Objects
     '''
@@ -73,6 +73,34 @@ class blog (db.Model):
         Function that queries the databse and returns all the bloges
         '''
         return blog.query.all()
+class Comment(db.Model):
+    
+    __tablename__ = 'comments'
+
+    id = db.Column(db.Integer,primary_key = True)
+    comment= db.Column(db.String)
+    blog_id = db.Column(db.Integer,db.ForeignKey('blog.id'))
+    username =  db.Column(db.String)
+    votes= db.Column(db.Integer)
+    
+
+    def save_comment(self):
+        '''
+        Function that saves comments
+        '''
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def clear_comments(cls):
+        Comment.all_comments.clear()
+
+    @classmethod
+    def get_comments(cls,id):
+        comments = Comment.query.filter_by(blog_id=id).all()
+
+        return comments
+
 
 
 
