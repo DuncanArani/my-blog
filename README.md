@@ -1,5 +1,5 @@
-# ONE MINUTE PUITCH APPLICATION
-#### This Application is updated version, 7/09/2018
+# MY BLOG 
+#### This Application is updated version, 14/09/2018
 #### By **Duncan Arani**
 ## Description
 this Application is used to display your blogs and blogs posted by others then you can like or dislike blogs posted by others and you can also comment on the other's blogs.
