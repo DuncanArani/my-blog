@@ -1,6 +1,6 @@
-{% macro displaybloges(bloges_list) %}
+{% macro displayblogs(blogs_list) %}
 
-    {% for blog in bloges_list %}
+    {% for blog in blogs_list %}
       <div class="panel style="style="box-shadow: 5px 5px 5px 5px #f2f2f2; padding:10px; text-align:center;    categories = blogCategory.query.all()
     return categories">
           <p>{{blog.blog}}</p>
@@ -32,8 +32,8 @@
 {% endfor %}
 {% endmacro %}
 
-{% macro displayblogesInCategories(bloges,id)%}
-  {% for blog in bloges %}
+{% macro displayblogsInCategories(blogs,id)%}
+  {% for blog in blogs %}
     {% if blog.category_id==id%}
         <div class="panel style="style="box-shadow: 5px 5px 5px 5px #f2f2f2; padding:10px;">
             <p>{{blog.blog}}</p>

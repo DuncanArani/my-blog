@@ -1,0 +1,21 @@
+{% extends 'base.html'%}
+{% import 'macros.html' as macro%}
+
+
+{% block content %}
+
+    <div class="container">
+        <h3>PROMOTION blogs</h3>
+        <a href="{{url_for('main.new_blog')}}">
+            <br>
+            Add a new blog
+        </a>
+
+        <hr>
+        
+            {{macro.displayblogsInCategories(blogs,3)}}
+        <hr>
+    
+    </div>
+
+{% endblock %}
