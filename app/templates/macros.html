@@ -1,8 +1,8 @@
 {% macro displayblogs(blogs_list) %}
 
     {% for blog in blogs_list %}
-      <div class="panel style="style="box-shadow: 5px 5px 5px 5px #f2f2f2; padding:10px; text-align:center;    categories = blogCategory.query.all()
-    return categories">
+      <div class="panel style="style="box-shadow: 5px 5px 5px 5px #f2f2f2; padding:10px; text-align:center;    Users = blogUser.query.all()
+    return user.blog">
           <p>{{blog.blog}}</p>
           <br>
           <a href="{{url_for('main.new_comment',id=blog.id)}}">Add a Comment</a>&nbsp;&nbsp;|
@@ -32,9 +32,9 @@
 {% endfor %}
 {% endmacro %}
 
-{% macro displayblogsInCategories(blogs,id)%}
+{% macro displayblogs(blogs,id)%}
   {% for blog in blogs %}
-    {% if blog.category_id==id%}
+    {% if blog.user_id==id%}
         <div class="panel style="style="box-shadow: 5px 5px 5px 5px #f2f2f2; padding:10px;">
             <p>{{blog.blog}}</p>
             <a href="{{url_for('main.new_comment',id=blog.id)}}">Add a Comment</a>&nbsp;&nbsp;|

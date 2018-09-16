@@ -23,15 +23,15 @@ class User(UserMixin, db.Model):
     pass_secure = db.Column(db.String(255))
     # blog = db.relationship('blog',backref = 'users',lazy="dynamic")
 
-    # def save_comment(self):
-    #     db.session.add(self)
-    #     db.session.commit()
+    def save_comment(self):
+        db.session.add(self)
+        db.session.commit()
 
-    # @classmethod
-    # def get_comments(cls,id):
-    #     comments = Comment.query.filter_by(blog_id=id).all()
+    @classmethod
+    def get_comments(cls,id):
+        comments = Comment.query.filter_by(blog_id=id).all()
         
-    #     return comments
+        return comments
 
     @property
     def password(self):
@@ -47,71 +47,71 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return f'User {self.username}'
 
-# class Blog (db.Model):
-#     '''
-#     blog class to define blog Objects
-#     '''
-#     __tablename__ = 'blog'
+class Blog (db.Model):
+    '''
+    blog class to define blog Objects
+    '''
+    __tablename__ = 'blog'
 
-#     id = db.Column(db.Integer,primary_key = True)
-#     blog = db.Column(db.String)
-#     category_id = db.Column(db.Integer)
-#     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
-#     comments = db.relationship('Comment',backref = 'blog',lazy="dynamic")
+    id = db.Column(db.Integer,primary_key = True)
+    blog = db.Column(db.String)
+    category_id = db.Column(db.Integer)
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+    comments = db.relationship('Comment',backref = 'blog',lazy="dynamic")
         
 
-#     def save_blog(self):
-#         '''
-#         Function that saves blogs
-#         '''
-#         db.session.add(self)
-#         db.session.commit()
+    def save_blog(self):
+        '''
+        Function that saves blogs
+        '''
+        db.session.add(self)
+        db.session.commit()
     
-#     @classmethod
-#     def get_all_blogs(cls):
-#         '''
-#         Function that queries the databse and returns all the blogs
-#         '''
-#         return Blog.query.all()
+    @classmethod
+    def get_all_blogs(cls):
+        '''
+        Function that queries the databse and returns all the blogs
+        '''
+        return Blog.query.all()
 
-#     @classmethod
-#     def get_blogs_by_category(cls,cat_id):
-#         '''
-#         Function that queries the databse and returns blogs based on the
-#         category passed to it
-#         '''
-#         return blog.query.filter_by(category_id= cat_id)
-
-
+    @classmethod
+    def get_blogs_by_user(cls,user_id):
+        '''
+        Function that queries the databse and returns blogs based on the
+        category passed to it
+        '''
+        return blog.query.filter_by(user_id= user_id)
 
 
-# class Comment(db.Model):
 
-#     __tablename__ = 'comments'
 
-#     id = db.Column(db.Integer,primary_key = True)
-#     comment= db.Column(db.String)
-#     blog_id = db.Column(db.Integer,db.ForeignKey('blog.id'))
-#     username =  db.Column(db.String)
-#     votes= db.Column(db.Integer)
+class Comment(db.Model):
+
+    __tablename__ = 'comments'
+
+    id = db.Column(db.Integer,primary_key = True)
+    comment= db.Column(db.String)
+    blog_id = db.Column(db.Integer,db.ForeignKey('blog.id'))
+    username =  db.Column(db.String)
+    votes= db.Column(db.Integer)
     
 
-#     def save_comment(self):
-#         '''
-#         Function that saves comments
-#         '''
-#         db.session.add(self)
-#         db.session.commit()
+    def save_comment(self):
+        '''
+        Function that saves comments
+        '''
+        db.session.add(self)
+        db.session.commit()
 
-#     @classmethod
-#     def clear_comments(cls):
-#         Comment.all_comments.clear()
+    @classmethod
+    def clear_comments(cls):
+        Comment.all_comments.clear()
 
-#     @classmethod
-#     def get_comments(cls,id):
-#         comments = Comment.query.filter_by(blog_id=id).all()
+    @classmethod
+    def get_comments(cls,id):
+        comments = Comment.query.filter_by(blog_id=id).all()
 
-#         return comments
+        return comments
 
 class Role(db.Model):
     __tablename__ = 'roles'
@@ -123,27 +123,4 @@ class Role(db.Model):
     def __repr__(self):
         return f'User {self.name}'  
 
-
-# class BlogCategory(db.Model):
-#     '''
-#     Function that defines different categories of blogs
-#     '''
-#     __tablename__ ='blog_categories'
-
-
-#     id = db.Column(db.Integer, primary_key=True)
-#     name_of_category = db.Column(db.String(255))
-#     category_description = db.Column(db.String(255))
-
-#     @classmethod
-#     def get_categories(cls):
-#         '''
-#         This function fetches all the categories from the database
-#         '''
-#         categories = blogCategory.query.all()
-#         return categories    # '''
-    # Development  configuration child class
-    # Args:
-    #     Config: The parent configuration class with General configuration settings
-    # '''
     

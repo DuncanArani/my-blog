@@ -1,10 +1,9 @@
-# from flask import render_template, request, redirect, url_for, abort
-from flask import render_template  
+from flask import render_template, request, redirect, url_for, abort
 from . import main  
-# from .forms import CommentsForm, UpdateProfile, BlogForm, LikeForm
-# from ..models import Comment, Blog, User 
+from .forms import CommentsForm, UpdateProfile, BlogForm, LikeForm
+from ..models import Comment, Blog, User 
 from flask_login import login_required, current_user
-# from .. import db,photos
+from .. import db,photos
 
 import markdown2
 
@@ -12,169 +11,113 @@ import markdown2
 
 @main.route('/')
 def index():
-    # '''
-    # View root page function that returns the index page and its data
-    # '''
-    # title = 'Home - Welcome to The best bloging Website Online'
+    '''
+    View root page function that returns the index page and its data
+    '''
+    title = 'Home - Welcome to The best bloging Website Online'
 
-    # search_blog = request.args.get('blog_query')
-    # blogs= Blog.get_all_blogs()  
-    return render_template('index.html')
-
-    # return render_template('index.html', title = title, blogs= blogs)
-
-#this section consist of the category root functions
-
-# @main.route('/inteview/blogs/')
-# def interview():
-#     '''
-#     View root page function that returns the index page and its data
-#     '''
-#     blogs= blog.get_all_blogs()
-#     title = 'Home - Welcome to The best bloging Website Online'  
-#     return render_template('interview.html', title = title, blogs= blogs )
-
-# @main.route('/pick_up_lines/blogs/')
-# def pick_up_line():
-#     '''
-#     View root page function that returns the index page and its data
-#     '''
-#     title = 'Pick Up Lines'
-
-#     blogs= blog.get_all_blogs()
-
-#     return render_template('pick_up_lines.html', title = title, blogs= blogs )
-
-# @main.route('/promotion/blogs/')
-# def promotion():
-#     '''
-#     View root page function that returns the index page and its data
-#     '''
-#     title = 'Promotion blogs'
-
-#     blogs= blog.get_all_blogs()
-
-#     return render_template('promotion.html', title = title, blogs= blogs )
+    search_blog = request.args.get('blog_query')
+    blog= Blog.get_all_blogs()  
 
 
-# @main.route('/product/blogs/')
-# def product():
-#     '''
-#     View root page function that returns the index page and its data
-#     '''
-#     title = 'Product blogs'
-#     blogs= blog.get_all_blogs()
-#     return render_template('product.html', title = title, blogs= blogs )
- 
-# #  end of category root functions
-
-# @main.route('/blog/<int:blog_id>')
-# def blog(blog_id):
-
-#     '''
-#     View blog page function that returns the blog details page and its data
-#     '''
-#     found_blog= get_blog(blog_id)
-#     title = blog_id
-#     blog_comments = Comment.get_comments(blog_id)
-
-#     return render_template('blog.html',title= title ,found_blog= found_blog, blog_comments= blog_comments)
-
-# @main.route('/search/<blog_name>')
-# def search(blog_name):
-#     '''
-#     View function to display the search results
-#     '''
-#     searched_blogs = search_blog(blog_name)
-#     title = f'search results for {blog_name}'
-
-#     return render_template('search.html',blogs = searched_blogs)
-
-# @main.route('/blog/new/', methods = ['GET','POST'])
-# @login_required
-# def new_blog():
-#     '''
-#     Function that creates new blogs
-#     '''
-#     form = blogForm()
+    return render_template('index.html', title = title, Blog= Blog)
 
 
-#     if category is None:
-#         abort( 404 )
+@main.route('/blog/<int:blog_id>')
+def blog(blog_id):
 
-#     if form.validate_on_submit():
-#         blog= form.content.data
-#         category_id = form.category_id.data
-#         new_blog= blog(blog= blog, category_id= category_id)
+    '''
+    View blog page function that returns the blog details page and its data
+    '''
+    found_blog= get_blog(blog_id)
+    title = blog_id
+    blog_comments = Comment.get_comments(blog_id)
 
-#         new_blog.save_blog()
-#         return redirect(url_for('main.index'))
+    return render_template('blog.html',title= title ,found_blog= found_blog, blog_comments= blog_comments)
 
-#     return render_template('new_blog.html', new_blog_form= form, category= category)
+@main.route('/search/<blog_name>')
+def search(blog_name):
+    '''
+    View function to display the search results
+    '''
+    searched_blogs = search_blog(blog_name)
+    title = f'search results for {blog_name}'
 
-# @main.route('/category/<int:id>')
-# def category(id):
-#     '''
-#     function that returns blogs based on the entered category id
-#     '''
-#     category = blogCategory.query.get(id)
+    return render_template('search.html',blogs = searched_blogs)
 
-#     if category is None:
-#         abort(404)
+@main.route('/blog/new/', methods = ['GET','POST'])
+@login_required
+def new_blog():
+    '''
+    Function that creates new blogs
+    '''
+    form = blogForm()
 
-#     blogs_in_category = Blogs.get_blog(id)
-#     return render_template('category.html' ,category= category, blogs= blogs_in_category)
 
-# @main.route('/blog/comments/new/<int:id>',methods = ['GET','POST'])
-# @login_required
-# def new_comment(id):
-#     form = CommentsForm()
-#     vote_form = UpvoteForm()
-#     if form.validate_on_submit():
-#         new_comment = Comment(blog_id =id,comment=form.comment.data,username=current_user.username,votes=form.vote.data)
-#         new_comment.save_comment()
-#         return redirect(url_for('main.index'))
-#     #title = f'{blog_result.id} review'
-#     return render_template('new_comment.html',comment_form=form, vote_form= vote_form)
+    if user is None:
+        abort( 404 )
 
-# @main.route('/user/<uname>/update/pic',methods= ['POST'])
-# @login_required
-# def update_pic(uname):
-#     user = User.query.filter_by(username = uname).first()
-#     if 'photo' in request.files:
-#         filename = photos.save(request.files['photo'])
-#         path = f'photos/{filename}'
-#         user.profile_pic_path = path 
-#         db.session.commit()
-#     return redirect(url_for('main.profile',uname=uname))
+    if form.validate_on_submit():
+        blog= form.content.data
+        category_id = form.category_id.data
+        new_blog= blog(blog= blog, user_id= user_id)
 
-# @main.route('/user/<uname>')
-# def profile(uname):
-#     user = User.query.filter_by(username = uname).first()
+        new_blog.save_blog()
+        return redirect(url_for('main.index'))
 
-#     if user is None:
-#         abort(404)
+    return render_template('new_blog.html', new_blog_form= form, category= category)
 
-#     return render_template("profile/profile.html", user = user)
 
-# @main.route('/user/<uname>/update',methods = ['GET','POST'])
-# @login_required
-# def update_profile(uname):
-#     user = User.query.filter_by(username = uname).first()
-#     if user is None:
-#         abort(404)
+@main.route('/blog/comments/new/<int:id>',methods = ['GET','POST'])
+@login_required
+def new_comment(id):
+    form = CommentsForm()
+    vote_form = LikeForm()
+    if form.validate_on_submit():
+        new_comment = Comment(blog_id =id,comment=form.comment.data,username=current_user.username,votes=form.vote.data)
+        new_comment.save_comment()
+        return redirect(url_for('main.index'))
+    title = f'{blog_result.id} review'
+    return render_template('new_comment.html',comment_form=form, vote_form= vote_form)
 
-#     form = UpdateProfile()
+@main.route('/user/<uname>/update/pic',methods= ['POST'])
+@login_required
+def update_pic(uname):
+    user = User.query.filter_by(username = uname).first()
+    if 'photo' in request.files:
+        filename = photos.save(request.files['photo'])
+        path = f'photos/{filename}'
+        user.profile_pic_path = path 
+        db.session.commit()
+    return redirect(url_for('main.profile',uname=uname))
 
-#     if form.validate_on_submit():
-#         user.bio = form.bio.data
+@main.route('/user/<uname>')
+def profile(uname):
+    user = User.query.filter_by(username = uname).first()
 
-#         db.session.add(user)
-#         db.session.commit()
+    if user is None:
+        abort(404)
 
-#         return redirect(url_for('.profile',uname=user.username))
+    return render_template("profile/profile.html", user = user)
+
+@main.route('/user/<uname>/update',methods = ['GET','POST'])
+@login_required
+def update_profile(uname):
+    user = User.query.filter_by(username = uname).first()
+    if user is None:
+        abort(404)
+
+    form = UpdateProfile()
+
+    if form.validate_on_submit():
+        user.bio = form.bio.data
+
+        db.session.add(user)
+        db.session.commit()
+
+        return redirect(url_for('.profile',uname=user.username))
     
-#     return render_template('profile/update.html',form =form)
+    return render_template('profile/update.html',form =form)
 
 # @main.route('/view/comment/<int:id>')
 # def view_comments(id):
@@ -186,12 +129,12 @@ def index():
 
 
 
-# @main.route('/test/<int:id>')  
-# def test(id):
-#     '''
-#     this is route for basic testing
-#     '''
-#     blog =Blog.query.filter_by(id=1).first()
-#     return render_template('test.html',blog= blog)
+@main.route('/test/<int:id>')  
+def test(id):
+    '''
+    this is route for basic testing
+    '''
+    blog =Blog.query.filter_by(id=1).first()
+    return render_template('test.html',blog= blog)
 
 
