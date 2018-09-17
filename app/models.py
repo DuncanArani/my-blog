@@ -80,7 +80,7 @@ class Blog (db.Model):
         Function that queries the databse and returns blogs based on the
         category passed to it
         '''
-        return blog.query.filter_by(user_id= user_id)
+        return Blog.query.filter_by(user_id= user_id)
 
 
 

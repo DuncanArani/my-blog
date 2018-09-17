@@ -20,7 +20,7 @@ def index():
     blog= Blog.get_all_blogs()  
 
 
-    return render_template('index.html', title = title, Blog= Blog)
+    return render_template('index.html', title = title ,blog=blog)
 
 
 @main.route('/blog/<int:blog_id>')
@@ -59,13 +59,13 @@ def new_blog():
 
     if form.validate_on_submit():
         blog= form.content.data
-        category_id = form.category_id.data
+        user_id = form.user_id.data
         new_blog= blog(blog= blog, user_id= user_id)
 
         new_blog.save_blog()
         return redirect(url_for('main.index'))
 
-    return render_template('new_blog.html', new_blog_form= form, category= category)
+    return render_template('new_blog.html', new_blog_form= form, user= user)
 
 
 @main.route('/blog/comments/new/<int:id>',methods = ['GET','POST'])
@@ -119,13 +119,13 @@ def update_profile(uname):
     
     return render_template('profile/update.html',form =form)
 
-# @main.route('/view/comment/<int:id>')
-# def view_comments(id):
-#     '''
-#     Function that returs  the comments belonging to a particular blog
-#     '''
-#     comments = Comment.get_comments(id)
-#     return render_template('view_comments.html',comments = comments, id=id)
+@main.route('/view/comment/<int:id>')
+def view_comments(id):
+    '''
+    Function that returs  the comments belonging to a particular blog
+    '''
+    comments = Comment.get_comments(id)
+    return render_template('view_comments.html',comments = comments, id=id)
 
 
 
@@ -138,3 +138,4 @@ def test(id):
     return render_template('test.html',blog= blog)
 
 
+    return render_template('new_blog.html', new_blog_form= form, user= user)
