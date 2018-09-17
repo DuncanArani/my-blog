@@ -13,7 +13,7 @@ class UpdateProfile(FlaskForm):
     submit = SubmitField('Submit') 
 
 class BlogForm(FlaskForm):
-    User_id = SelectField('Select user', choices=[('1', 'Interview')])
+    User_id = SelectField('Select user', choices=[('1', 'my blog')])
     content = TextAreaField('MY BLOG')
     submit = SubmitField('Create blog')
 

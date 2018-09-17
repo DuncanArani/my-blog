@@ -51,7 +51,7 @@ def new_blog():
     '''
     Function that creates new blogs
     '''
-    form = blogForm()
+    form = BlogForm()
 
 
     if user is None:
@@ -119,7 +119,7 @@ def update_profile(uname):
     
     return render_template('profile/update.html',form =form)
 
-@main.route('/view/comment/<int:id>')
+@main.route('/view/comments/<int:id>')
 def view_comments(id):
     '''
     Function that returs  the comments belonging to a particular blog
