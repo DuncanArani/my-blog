@@ -5,7 +5,7 @@ class Config:
     General configuration parent class
     '''
     SECRET_KEY = 'os.environ.get'
-    # SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://dunco:dunco@localhost/blog'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://dunco:dunco@localhost/blog'
     UPLOADED_PHOTOS_DEST ='app/static/photos'
     
     #  email configurations
@@ -40,7 +40,7 @@ class DevConfig(Config):
     Args:
         Config: The parent configuration class with General configuration settings
     '''
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://dunco:dunco@localhost/blog'    
+    
 
     DEBUG = True
 
